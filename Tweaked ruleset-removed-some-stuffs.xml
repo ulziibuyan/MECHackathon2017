@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ConfigRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="-1" name="UNSAVED" xsi:schemaLocation="">
+    <Indices>
+        <Index type="ruleXXX">
+            <ConfigElement name="Execute onto a business document">
+                <Attribute valueType="String-value" value="" label="Description" id="description"/>
+                <Attribute valueType="boolean-value" value="True" label="Authenticate rule" id="warnings"/>
+                <Index type="rule_factory">
+                    <ConfigElement name="C_Calculate_First_Party_Age_Group">
+                        <Attribute valueType="RLT" value="SQL: Get the first party age group" label="Rule template" id="ruleFactory">
+                            <ValueObject name="C_Calculate_First_Party_Real_age"/>
+                        </Attribute>
+                        <Attribute valueType="boolean-value" value="True" label="Integrity check" id="ruleWarnings"/>
+                        <Attribute valueType="boolean-value" value="True" label="Export file to dir A" id="builder"/>
+                        <Attribute valueType="boolean-value" value="False" label="Export file to dir B" id="fusion"/>
+                        <Attribute valueType="boolean-value" value="False" label="Export file to dir C" id="live"/>
+                        <Attribute valueType="boolean-value" value="False" label="Export file to dir D" id="visualization"/>
+                        <Index type="special_case">
+                            <ConfigElement name="Default">
+<Attribute valueType="boolean-value" value="True" label="Apply this rule" id="enabled"/>
+<Attribute valueType="DefinitionElement" value="Text: Calculate First Party Age" label="FPDOB" id="result.Output Variables.FPDOB"/>
+<Attribute valueType="longText-value" value="Date_Of_birth" label="First_Party_DOB" id="scorer.Output Variables.VehicleAttribute"/>
+<Attribute valueType="boolean-value" value="False" label="currentDate" id="currentDate"/>
+<Attribute valueType="boolean-value" value="False" label="dobDate" id="dobDate"/>
+                            </ConfigElement>
+                        </Index>
+                    </ConfigElement>
+                </Index>
+            </ConfigElement>
+        </Index>
+    </Indices>
+    <ConfigToolVersions>
+        <ConfigToolVersion>8.625</ConfigToolVersion>
+    </ConfigToolVersions>
+    <UIEditors>
+        <UIEditor>com.myPackage.packageA</UIEditor>
+        <UIEditor>com.myPackage.packageB</UIEditor>
+        <UIEditor>com.myPackage.packageC</UIEditor>
+        <UIEditor>com.myPackage.packageD</UIEditor>
+        <UIEditor>com.myPackage.packageE</UIEditor>
+        <UIEditor>com.myPackage.packageF</UIEditor>
+        <UIEditor>com.myPackage.packageG</UIEditor>
+    </UIEditors>
+    <Dependencies>
+        <Dependency>../../Templates/myTemplates.xml</Dependency>
+        <Dependency>../../Definitions/myDefinition.xml</Dependency>
+    </Dependencies>
+</ConfigRoot>
