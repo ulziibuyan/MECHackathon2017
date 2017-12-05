@@ -1,4 +1,22 @@
 
+import java.io.File;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
 public  class ConfigurationExporter {
     public String SQLText;
     public String longTextValue;
@@ -8,61 +26,68 @@ public  class ConfigurationExporter {
         longTextValue = null;
     }
 
-    public  void writeConfiguration() {
-        StringBuilder configXMLString = new StringBuilder();
-        configXMLString.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
-configXMLString.append("<ConfigRoot xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"-1\" name=\"UNSAVED\" xsi:schemaLocation=\"\">");
-configXMLString.append("Indices");
-configXMLString.append("Index type=\"ruleXXX\"");
-configXMLString.append("ConfigElement name=\"Execute onto a business document\"");
-configXMLString.append("Attribute valueType=\"String-value\" value=\"\" label=\"Description\" id=\"description\"/");
-configXMLString.append("Attribute valueType=\"boolean-value\" value=\"True\" label=\"Authenticate rule\" id=\"warnings\"/");
-configXMLString.append("Index type=\"rule_factory\"");
-configXMLString.append("ConfigElement name=\"C_Calculate_First_Party_Age_Group\"");
-configXMLString.append("Attribute valueType=\"RLT\" value=\"");
-configXMLString.append(this.getSQLText());
-configXMLString.append("\" label=\"Rule template\" id=\"ruleFactory\"");
-configXMLString.append("ValueObject name=\"C_Calculate_First_Party_Real_age\"/");
-configXMLString.append("/Attribute");
-configXMLString.append("Attribute valueType=\"boolean-value\" value=\"True\" label=\"Integrity check\" id=\"ruleWarnings\"/");
-configXMLString.append("Attribute valueType=\"boolean-value\" value=\"True\" label=\"Export file to dir A\" id=\"builder\"/");
-configXMLString.append("Attribute valueType=\"boolean-value\" value=\"False\" label=\"Export file to dir B\" id=\"fusion\"/");
-configXMLString.append("Attribute valueType=\"boolean-value\" value=\"False\" label=\"Export file to dir C\" id=\"live\"/");
-configXMLString.append("Attribute valueType=\"boolean-value\" value=\"False\" label=\"Export file to dir D\" id=\"visualization\"/");
-configXMLString.append("Index type=\"special_case\"");
-configXMLString.append("ConfigElement name=\"Default\"");
-configXMLString.append("Attribute valueType=\"boolean-value\" value=\"True\" label=\"Apply this rule\" id=\"enabled\"/");
-configXMLString.append("Attribute valueType=\"DefinitionElement\" value=\"Text: Calculate First Party Age\" label=\"FPDOB\" id=\"result.Output Variables.FPDOB\"/");
-configXMLString.append("Attribute valueType=\"longText-value\" value=\"");
-configXMLString.append(this.getLongTextValue());
-configXMLString.append("\" label=\"First_Party_DOB\" id=\"scorer.Output Variables.VehicleAttribute\"/");
-configXMLString.append("Attribute valueType=\"boolean-value\" value=\"False\" label=\"currentDate\" id=\"currentDate\"/");
-configXMLString.append("Attribute valueType=\"boolean-value\" value=\"False\" label=\"dobDate\" id=\"dobDate\"/");
-configXMLString.append("/ConfigElement");
-configXMLString.append("/Index");
-configXMLString.append("/ConfigElement");
-configXMLString.append("/Index");
-configXMLString.append("/ConfigElement");
-configXMLString.append("/Index");
-configXMLString.append("/Indices");
-configXMLString.append("ConfigToolVersions");
-configXMLString.append("ConfigToolVersion>8.625</ConfigToolVersion");
-configXMLString.append("/ConfigToolVersions");
-configXMLString.append("UIEditors");
-configXMLString.append("UIEditor>com.myPackage.packageA</UIEditor");
-configXMLString.append("UIEditor>com.myPackage.packageB</UIEditor");
-configXMLString.append("UIEditor>com.myPackage.packageC</UIEditor");
-configXMLString.append("UIEditor>com.myPackage.packageD</UIEditor");
-configXMLString.append("UIEditor>com.myPackage.packageE</UIEditor");
-configXMLString.append("UIEditor>com.myPackage.packageF</UIEditor");
-configXMLString.append("UIEditor>com.myPackage.packageG</UIEditor");
-configXMLString.append("/UIEditors");
-configXMLString.append("Dependencies");
-configXMLString.append("Dependency>../../Templates/myTemplates.xml</Dependency");
-configXMLString.append("Dependency>../../Definitions/myDefinition.xml</Dependency");
-configXMLString.append("/Dependencies");
-configXMLString.append("/ConfigRoot>");
-        System.out.println(configXMLString.toString());
+    public void write() {
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder;
+        try {
+            dBuilder = dbFactory.newDocumentBuilder();
+            Document document = dBuilder.newDocument();
+            Element element;
+            Node node;
+
+            element = document.createElement("ConfigRoot");
+            document.appendChild(element);
+
+            node = document.getLastChild();
+            element = document.createElement("Indices");
+            node.appendChild(element);
+
+            node = document.getLastChild();
+            element = document.createElement("Index");
+            node.appendChild(element);
+
+            node = document.getLastChild();
+            element = document.createElement("ConfigElement");
+            element.setAttribute("name", "Execute onto a business document");
+            node.appendChild(element);
+
+            element = document.createElement("Attribute");
+            node.appendChild(element);
+            element = document.createElement("Attribute");
+            node.appendChild(element);
+
+            element = document.createElement("Index");
+            node.appendChild(element);
+
+            node = document.getLastChild();
+            element = document.createElement("ConfigElement");
+            element.setAttribute("name", "C_Calculate_First_Party_Age_Group");
+            node.appendChild(element);
+
+            node = document.getLastChild();
+            element = document.createElement("Attribute");
+            element.setAttribute("value", "SQL: Get the first party age group");
+            node.appendChild(element);
+
+            //for output to file, console
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            //for pretty print
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            DOMSource source = new DOMSource(document);
+
+            //write to console or file
+            StreamResult console = new StreamResult(System.out);
+            StreamResult file = new StreamResult(new File("../config.xml"));
+
+            //write data
+            transformer.transform(source, console);
+            transformer.transform(source, file);
+            System.out.println("DONE");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public  String getSQLText() {
@@ -78,10 +103,10 @@ configXMLString.append("/ConfigRoot>");
         this.longTextValue = text;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         ConfigurationExporter configurationExporter = new ConfigurationExporter();
         configurationExporter.setLongTextValue("longlong");
         configurationExporter.setSQLText("sqlsql");
-        configurationExporter.writeConfiguration();
+        configurationExporter.write();
     }
 }
