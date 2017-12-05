@@ -24,14 +24,64 @@ import opennlp.tools.util.TrainingParameters;
 
 public class ModelGenerator{
 	
-	static String onlpModelPath="C:/Users/NMatAli/Desktop/dependencies/model-file/en-sent-KYC.bin";
 	//training data set needs to be 15, 000 for better result
-	static String trainingDataFilePath="C:\\Users\\NMatAli\\Desktop\\dependencies\\training-files\\KYCDetails.train";
 	
+	@SuppressWarnings("null")
+	public static void TokenFinderModelGenerator() throws IOException {
+		
+		String onlpModelPath="C:/Users/NMatAli/Desktop/dependencies/model-file/en-sent-KYC.bin";
+		String trainingDataFilePath="C:\\Users\\NMatAli\\Desktop\\dependencies\\training-files\\KYCDetails.train";
+		
+		Charset charset = Charset.forName("UTF-8");
+		
+		InputStreamFactory isf = new InputStreamFactory() {
+			
+			public InputStream createInputStream() throws IOException{
+				
+				return new FileInputStream(trainingDataFilePath);
+				
+			}
+			
+		};
+		
+		       ObjectStream<String> lineStream = new PlainTextByLineStream(isf, charset);
+		       ObjectStream<NameSample> sampleStream = new NameSampleDataStream(lineStream);
+		       TokenNameFinderModel model = null;
+			   TokenNameFinderFactory nameFinderFactory = new TokenNameFinderFactory();
+			   HashMap<String, Object> mp = new HashMap<String,Object>();
+				
+				try {
+					
+					model = NameFinderME.train("en", "KYC", sampleStream, TrainingParameters.defaultParams(),nameFinderFactory);
+								
+				} finally {
+					
+					sampleStream.close();
+					
+				}
+				BufferedOutputStream modelOut = null;
+				
+				try {
+					
+					modelOut = new BufferedOutputStream(new FileOutputStream(onlpModelPath));
+					model.serialize(modelOut);
+					
+				} finally {
+					
+					if(modelOut!=null) {
+						
+						modelOut.close();
+						
+					}
+				}
+		
+	}
 	
-	public static void main(String[] args) throws IOException{
+	@SuppressWarnings("deprecation")
+	public static void SentenceModelGenerator() throws IOException{
 		
-		
+		String onlpModelPath="C:/Users/NMatAli/Desktop/dependencies/model-file/en-sent-KYC1.bin";
+		String trainingDataFilePath="C:\\Users\\NMatAli\\Desktop\\dependencies\\training-files\\KYCDetails.train";
 		
 		Charset charset = Charset.forName("UTF-8");
 		
@@ -46,21 +96,14 @@ public class ModelGenerator{
 		};
 		
 		ObjectStream<String> lineStream = new PlainTextByLineStream(isf, charset);
-		//ObjectStream<NameSample> sampleStream = new NameSampleDataStream(lineStream);
 		ObjectStream<SentenceSample> sampleStream = new SentenceSampleStream(lineStream);
-		
 		SentenceModel model = null;
-		//TokenNameFinderModel model = null;
-		
-		//TokenNameFinderFactory nameFinderFactory = new TokenNameFinderFactory();
-		HashMap<String, Object> mp = new HashMap<String,Object>();
-		
+        		
 		try {
-			
-			//model = NameFinderME.train("en", "KYC", sampleStream, TrainingParameters.defaultParams(),nameFinderFactory);
+		   
 			model = SentenceDetectorME.train("en", sampleStream, true, null, TrainingParameters.defaultParams());
-						
-		} finally {
+       
+        } finally {
 			
 			sampleStream.close();
 			
@@ -80,6 +123,19 @@ public class ModelGenerator{
 				
 			}
 		}
+
+		
+	}
+	
+	
+	public static void main(String[] args) throws IOException{
+		
+
+		
+		SentenceModelGenerator();
+		
+		
+		
 				
 	}
 }
