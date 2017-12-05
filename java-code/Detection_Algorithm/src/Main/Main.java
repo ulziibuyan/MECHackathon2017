@@ -14,12 +14,18 @@ public class Main{
 		
 		try {
 			
-			//SentenceDetect.sentenceDetect("A claim is scored high. This is assuming that are many parties living in the same house as another.");
-			String[] entities = EntityDetector.detectEntity("This is assuming that are many parties living in the same Road 70C.");
-			for(String s: entities)
+			String[] sentences = SentenceDetect.sentenceDetect("A claim is scored high. If a vehicle age is lesser than 7 days.");
+			String modelPathAge="C:/Users/NMatAli/Desktop/dependencies/model-file/en-ner-age.bin";
+			String modelPathNumber="C:/Users/NMatAli/Desktop/dependencies/model-file/en-ner-number.bin";
+			String[] entitiesNumber= EntityDetector.detectEntity(sentences[0], modelPathNumber);
+			String[] entitiesAge = EntityDetector.detectEntity(sentences[0], modelPathAge);
+			
+			for(String s: entitiesNumber)
 				   System.out.println(s);
-
-		
+			
+			for(String s: entitiesAge)
+				   System.out.println(s);
+			
 			
 		} catch (InvalidFormatException e) {
 			

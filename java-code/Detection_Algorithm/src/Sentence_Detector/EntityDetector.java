@@ -57,9 +57,9 @@ public class EntityDetector{
 	}
 	
 	
-	public static String[] detectEntity(String sentence) throws InvalidFormatException, IOException{
+	public static String[] detectEntity(String sentence, String modelPath) throws InvalidFormatException, IOException{
 		
-		InputStream is =  new FileInputStream("C:\\Users\\NMatAli\\Desktop\\dependencies\\model-file\\en-ner-address.bin");
+		InputStream is =  new FileInputStream(modelPath);
 		
 		TokenNameFinderModel model = null;
 		
@@ -90,51 +90,44 @@ public class EntityDetector{
 
 		  NameFinderME entityFinder = new NameFinderME(model);
 		  
-		  entityFinder.clearAdaptiveData();
 		  String[] tokens = detectionTokens(sentence);
 		  
-		  System.out.println(entityFinder.START);
-		 		 
-		  System.out.println(entityFinder.find(tokens).toString());
+		  for(String s: tokens) {
+			  
+			  System.out.println("T:"+s);
+		  }
 		  
-		 
 		  Span foundEntity [] = entityFinder.find(tokens);
-		  
-		  System.out.println(foundEntity.length);
-		  
-		  		  
-		  for(String s: tokens)
-			   System.out.println("Token:"+s);
-		  
+		  entityFinder.clearAdaptiveData();
 		 
-		 //String type = foundname.getType();
 		  
 		  for(Span s: foundEntity) {
               
-			  System.out.println("Name Entity : "+s.toString());
-              
-			  entityFinder.clearAdaptiveData();
+			  String type = s.getType();
+			  System.out.println("Name Entity : "+s.toString()+ " Type:"+type);
+              entityFinder.clearAdaptiveData();
 			  
-              }
-		  
-		 // System.out.println("Found entity: " + Arrays.toString(Span.spansToStrings(foundEntity, tokens)));
-
-		  
+          }
+		 		  
 		  List<String> entities = new ArrayList<>();
 		  
 		  for (Span span : foundEntity) {
 			   int start = span.getStart();
-			   int end = span.getEnd();
+			   int end;
+			   if(span.getType().equals("number")) {end = span.getEnd();}else {end = span.getEnd()-1;}
 
 			   String temp = "";
 			   for (int i = start; i < end; i++) {
-			    temp = temp + tokens[i];
+				
+				if(!tokens[i].equals("."))
+			         {temp = temp + tokens[i];}
      	   }
 
 		   entities.add(temp);
 		  
 		  }
 		  
+		  entityFinder.clearAdaptiveData();
 		  String[] temp= new String[entities.size()];
 		  
 		  return entities.toArray(temp);

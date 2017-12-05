@@ -92,8 +92,9 @@ public class ModelGenerator{
 	@SuppressWarnings("null")
 	public static void TokenFinderModelGenerator() throws InvalidFormatException, IOException {
 		
-		String onlpModelPath="C:/Users/NMatAli/Desktop/dependencies/model-file/en-ner-address.bin";
-		String trainingDataFilePath="C:\\Users\\NMatAli\\Desktop\\dependencies\\training-files\\address.train";
+		String onlpModelPath="C:/Users/NMatAli/Desktop/dependencies/model-file/en-ner-number.bin";
+		
+		String trainingDataFilePath="C:\\Users\\NMatAli\\Desktop\\dependencies\\training-files\\number.train";
 		
 		Charset charset = Charset.forName("UTF-8");
 		
@@ -107,7 +108,7 @@ public class ModelGenerator{
 			
 		};
 		
-		       String entityType = "address";
+		       String entityType = "number";
 		       ObjectStream<String> lineStream = new PlainTextByLineStream(isf, charset);
 		       ObjectStream<NameSample> sampleStream = new NameSampleDataStream(lineStream);
 		       TokenNameFinderModel model = null;
@@ -116,7 +117,7 @@ public class ModelGenerator{
 
 			   try {
 					
-					model = NameFinderME.train("en", entityType, sampleStream, TrainingParameters.defaultParams(),nameFinderFactory);
+					model = NameFinderME.train("pt", entityType, sampleStream, TrainingParameters.defaultParams(),nameFinderFactory);
 								
 				} finally {
 					
@@ -144,7 +145,7 @@ public class ModelGenerator{
 	@SuppressWarnings("deprecation")
 	public static void SentenceModelGenerator() throws IOException{
 		
-		String onlpModelPath="C:/Users/NMatAli/Desktop/dependencies/model-file/en-sent-KYC.bin";
+		String onlpModelPath="C:/Users/NMatAli/Desktop/dependencies/model-file/pt-sent-KYC.bin";
 		String trainingDataFilePath="C:\\Users\\NMatAli\\Desktop\\dependencies\\training-files\\KYCDetails.train";
 		
 		Charset charset = Charset.forName("UTF-8");
@@ -196,8 +197,8 @@ public class ModelGenerator{
 		
 
 		
-		//SentenceModelGenerator();
-		TokenFinderModelGenerator();
+		SentenceModelGenerator();
+		//TokenFinderModelGenerator();
 		//TokenModelGenerator();
 		
 				
