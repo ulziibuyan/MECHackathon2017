@@ -1,0 +1,5 @@
+A claim scored high, if 3 people live in the same house
+O: select 1 from (select addr,count(*) as people from entity_table group by addr) as temp_table where people = 3
+
+I: A claim scored high, if a car is less than 7 days
+O: select 1 from <entity_table> where "car age" < "no. of days"
