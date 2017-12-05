@@ -1,7 +1,0 @@
-<START:KYC>A claim should be scored high<END>
-<START:KYC>If there are many parties living in the same house<END>
-<START:KYC>A claim should be scored low<END>
-<START:KYC>If the parties are living in different house<END>
-<START:KYC>A claim should be scored medium<END>
-<START:KYC>If less than three parties are living in the same house<END>
-<START:KYC>But more than one is living in the same house<END>

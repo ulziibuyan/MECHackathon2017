@@ -1,0 +1,5 @@
+The word <START:ADR> house <END> is an address entity.
+The word <START:ADR> building <END> is an address entity.
+The word <START:ADR> apartment <END> is an address entity.
+The word <START:ADR> address <END> is an address entity.
+The word <START:ADR> postcode <END> is an address entity.
