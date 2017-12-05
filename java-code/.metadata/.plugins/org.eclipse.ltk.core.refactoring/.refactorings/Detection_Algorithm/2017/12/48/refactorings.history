@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;&apos; to &apos;Sentence_Detector.SentenceDetect.sentenceDetect(...)&apos;&#x0D;&#x0A;- Original project: &apos;Detection_Algorithm&apos;&#x0D;&#x0A;- Destination element: &apos;Sentence_Detector.SentenceDetect.sentenceDetect(...)&apos;&#x0D;&#x0A;- Original element: &apos;Sentence_Detector.SentenceDetect.breakSentence(...)&apos;&#x0D;&#x0A;- Textual move only&#x0D;&#x0A;- Update references to refactored element" description="Move method" destination="/src&lt;Sentence_Detector{SentenceDetect.java[SentenceDetect~sentenceDetect~QString;" element1="/src&lt;Sentence_Detector{SentenceDetect.java[SentenceDetect~breakSentence~\[QString;" flags="589830" id="org.eclipse.jdt.ui.move" members="1" policy="org.eclipse.jdt.ui.moveMembers" stamp="1512190847314" version="1.0"/>
+</session>

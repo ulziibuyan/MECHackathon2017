@@ -1,0 +1,22 @@
+package Main;
+
+import java.io.IOException;
+import opennlp.tools.util.InvalidFormatException;
+
+public class Main{
+	
+	public static void SentenceDetect() throws InvalidFormatException, IOException{
+		
+		
+	}
+	
+	public static void myMain(String[] args) {
+		
+		
+		
+		
+	}
+	
+	
+	
+}

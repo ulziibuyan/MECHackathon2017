@@ -1,0 +1,33 @@
+package Main;
+
+import java.io.IOException;
+import Sentence_Detector.SentenceDetect;
+import opennlp.tools.util.InvalidFormatException;
+
+public class Main{
+	
+
+	public static void main(String[] args) {
+		
+		try {
+			
+			SentenceDetect.sentenceDetect("A claim should be scored high If there are many parties living in the same house");
+			
+		} catch (InvalidFormatException e) {
+			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} catch (IOException e) {
+			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		
+		
+	}
+	
+	
+	
+}

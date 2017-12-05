@@ -1,0 +1,96 @@
+package Sentence_Detector;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import opennlp.tools.sentdetect.SentenceDetectorME;
+import opennlp.tools.sentdetect.SentenceModel;
+import opennlp.tools.util.InvalidFormatException;
+
+public class SentenceDetect{
+    
+
+	
+	public static void sentenceDetect(String paragraph) throws InvalidFormatException, IOException{
+		
+		
+		breakSentence(paragraph); 
+		//System.out.println(sentences[0]);
+		//System.out.println(sentences[1]);
+		
+		
+	}	
+	public static void breakSentence(String paragraph) throws IOException {
+		
+		InputStream is =  new FileInputStream("C://Users//NMatAli//Desktop//dependencies//model-file//en-sent.bin");
+		SentenceModel model = new SentenceModel(is);
+		SentenceDetectorME sdetector = new SentenceDetectorME(model); 
+			
+    	String sentences[]=sdetector.sentDetect(paragraph);
+    	
+    	System.out.println(sentences[1]);
+		
+		//String [] causes; //Cause is the ruleset condition
+		String [] consequence = null; //Consequence is the score result
+		int sentenceStart=0, sentenceLength=sentences.length;
+		int consequenceMarkStart=0, consequenceMarkEnd=0;
+		
+		
+		for(String s:sentences) {
+			
+			
+			System.out.println(s+"loop,"+sentenceStart);
+			
+			if(s.equals("if")) {
+				
+				System.out.println(s);
+												
+				consequenceMarkStart = sentenceStart;
+				
+				if (sentenceStart!=0) {
+					
+					consequenceMarkEnd=sentenceLength-1;
+					
+				}
+				else {
+					
+					int searchCommaBreak = 0;
+				
+					for(String h:sentences) {
+					//while(searchCommaBreak < sentenceLength) {
+						
+						if(h.equals(",")) {
+							
+							consequenceMarkEnd = searchCommaBreak;
+							break;
+						}
+						
+						searchCommaBreak++;
+					}
+					
+				break;
+					
+				}
+				
+			}
+					
+			sentenceStart++;
+			
+		}
+		
+		//consequence[0] = sentences[consequenceMarkStart];
+		//consequence[1] = sentences[consequenceMarkEnd];
+		
+		//System.out.println(consequence[0]+","+consequence[1]);
+		
+		is.close();
+		
+	}
+
+
+	
+	
+	
+	
+}

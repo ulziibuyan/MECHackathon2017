@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="opennlp.tools.util.InvalidFormatException"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="opennlp.tools.util.PlainTextByLineStream"/>
+<fullyQualifiedTypeName name="opennlp.tools.util.TrainingParameters"/>
+<fullyQualifiedTypeName name="opennlp.tools.namefind.TokenNameFinderFactory"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="opennlp.tools.sentdetect.SentenceModel"/>
+<fullyQualifiedTypeName name="opennlp.tools.sentdetect.SentenceDetectorME"/>
+<fullyQualifiedTypeName name="opennlp.tools.sentdetect.SentenceSample"/>
+<fullyQualifiedTypeName name="opennlp.tools.sentdetect.SentenceSampleStream"/>
+</qualifiedTypeNameHistroy>
