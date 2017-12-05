@@ -1,0 +1,145 @@
+package Sentence_Detector;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import opennlp.tools.namefind.NameFinderME;
+import opennlp.tools.namefind.TokenNameFinderModel;
+import opennlp.tools.tokenize.TokenizerME;
+import opennlp.tools.tokenize.TokenizerModel;
+import opennlp.tools.util.InvalidFormatException;
+import opennlp.tools.util.Span;
+
+public class EntityDetector{
+	
+	public static String[] detectionTokens(String splittedSentence) throws InvalidFormatException, IOException {
+		
+		InputStream is =  new FileInputStream("C:\\Users\\NMatAli\\Desktop\\dependencies\\model-file\\en-token.bin");
+		
+		TokenizerModel model = null;
+		
+		try {
+			
+			model = new TokenizerModel(is);
+			
+		} catch(Exception e){
+			
+			e.printStackTrace();
+			
+		} finally {
+			
+	    	 if (is != null) {
+			 
+	    		 try {
+			         
+	    			 is.close();
+			    
+	    		 } catch (IOException e) {
+			    
+	    			 e.printStackTrace();
+	    		 
+	    		 }
+		      }
+		  }
+		
+		TokenizerME entToken = new TokenizerME(model);
+		
+		
+		String [] tokens = entToken.tokenize(splittedSentence);
+		
+		return tokens;
+		
+	
+	}
+	
+	
+	public static String[] detectEntity(String sentence) throws InvalidFormatException, IOException{
+		
+		InputStream is =  new FileInputStream("C:\\Users\\NMatAli\\Desktop\\dependencies\\model-file\\en-ner-address.bin");
+		
+		TokenNameFinderModel model = null;
+		
+		 try {
+			   
+			 model = new TokenNameFinderModel(is);
+			 
+		 } catch (IOException e) {
+		
+			 e.printStackTrace();
+			 
+	     } finally {
+		
+	    	 if (is != null) {
+			 
+	    		 try {
+			         
+	    			 is.close();
+			    
+	    		 } catch (IOException e) {
+			    
+	    			 e.printStackTrace();
+	    		 
+	    		 }
+		      }
+		  }
+		 
+
+		  NameFinderME entityFinder = new NameFinderME(model);
+		  
+		  entityFinder.clearAdaptiveData();
+		  String[] tokens = detectionTokens(sentence);
+		  
+		  System.out.println(tokens[12]);
+		 		 
+		  System.out.println(entityFinder.find(tokens).toString());
+		  
+		  Span foundEntity [] = entityFinder.find(tokens);
+		  
+		  System.out.println(foundEntity.length);
+		  
+		  		  
+		  for(String s: tokens)
+			   System.out.println("Token:"+s);
+		  
+		 
+		 //String type = foundname.getType();
+		  
+		  for(Span s: foundEntity) {
+              
+			  System.out.println("Name Entity : "+s.toString());
+              
+			  entityFinder.clearAdaptiveData();
+			  
+              }
+		  
+		 // System.out.println("Found entity: " + Arrays.toString(Span.spansToStrings(foundEntity, tokens)));
+
+		  
+		  List<String> entities = new ArrayList<>();
+		  
+		  for (Span span : foundEntity) {
+			   int start = span.getStart();
+			   int end = span.getEnd();
+
+			   String temp = "";
+			   for (int i = start; i < end; i++) {
+			    temp = temp + tokens[i];
+     	   }
+
+		   entities.add(temp);
+		  
+		  }
+		  
+		  String[] temp= new String[entities.size()];
+		  
+		  return entities.toArray(temp);
+		
+		
+	}
+	
+	
+}

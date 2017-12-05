@@ -1,0 +1,15 @@
+package Sentence_Detector;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+public class EntityDetector{
+	
+	public void detectEntity(String sentence) {
+		
+		InputStream is =  new FileInputStream("C:\\Users\\NMatAli\\Desktop\\dependencies\\model-file\\en-ner-ADR.bin");
+		
+	}
+	
+	
+}

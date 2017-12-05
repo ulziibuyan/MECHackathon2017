@@ -23,19 +23,36 @@ public class SentenceDetect{
 	}	
 	public static void breakSentence(String paragraph) throws InvalidFormatException, IOException {
 		
-		//I just discovered that I need to train this model. I will see what I can do by Monday. My internet has problem so I can't upload very frequent
-		
+			
 		InputStream is =  new FileInputStream("C:\\Users\\NMatAli\\Desktop\\dependencies\\model-file\\en-sent-KYC.bin");
 		SentenceModel model = new SentenceModel(is);
 		SentenceDetectorME sdetector = new SentenceDetectorME(model); 
 			
     	String sentences[]=sdetector.sentDetect(paragraph);
     	
+    		
+    	String cause = null;
+    	String consequence = null;
+    	
+    	for(String s: sentences) {
+    		
+    		if(s.contains("This is assuming")) {
     			
+    			cause = s;
+    			
+    		}
+    		else {
+    			
+    			consequence = s;
+    		}
+    		
+    	}
+    	
 		//consequence[0] = sentences[consequenceMarkStart];
 		//consequence[1] = sentences[consequenceMarkEnd];
-		
-		System.out.println(sentences[0]+","+sentences[1]);
+		//System.out.println(sentences[0]+","+sentences[1]);
+    	
+    	System.out.println(cause + ", " + consequence);
 		
 		is.close();
 		

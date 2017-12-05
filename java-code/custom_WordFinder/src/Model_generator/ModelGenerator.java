@@ -92,8 +92,8 @@ public class ModelGenerator{
 	@SuppressWarnings("null")
 	public static void TokenFinderModelGenerator() throws InvalidFormatException, IOException {
 		
-		String onlpModelPath="C:/Users/NMatAli/Desktop/dependencies/model-file/en-ner-ADR.bin";
-		String trainingDataFilePath="C:\\Users\\NMatAli\\Desktop\\dependencies\\training-files\\ENT-ADR.train";
+		String onlpModelPath="C:/Users/NMatAli/Desktop/dependencies/model-file/en-ner-address.bin";
+		String trainingDataFilePath="C:\\Users\\NMatAli\\Desktop\\dependencies\\training-files\\address.train";
 		
 		Charset charset = Charset.forName("UTF-8");
 		
@@ -107,14 +107,14 @@ public class ModelGenerator{
 			
 		};
 		
-		       String entityType = "ADR";
+		       String entityType = "address";
 		       ObjectStream<String> lineStream = new PlainTextByLineStream(isf, charset);
 		       ObjectStream<NameSample> sampleStream = new NameSampleDataStream(lineStream);
 		       TokenNameFinderModel model = null;
 			   TokenNameFinderFactory nameFinderFactory = new TokenNameFinderFactory();
 			   //HashMap<String, Object> mp = new HashMap<String,Object>();
-				
-				try {
+
+			   try {
 					
 					model = NameFinderME.train("en", entityType, sampleStream, TrainingParameters.defaultParams(),nameFinderFactory);
 								
@@ -197,8 +197,8 @@ public class ModelGenerator{
 
 		
 		//SentenceModelGenerator();
-		//TokenFinderModelGenerator();
-		TokenModelGenerator();
+		TokenFinderModelGenerator();
+		//TokenModelGenerator();
 		
 				
 	}

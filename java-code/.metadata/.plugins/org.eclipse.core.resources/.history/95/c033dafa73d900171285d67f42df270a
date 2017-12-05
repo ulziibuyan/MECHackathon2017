@@ -1,0 +1,21 @@
+package Sentence_Detector;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import opennlp.tools.util.InvalidFormatException;
+
+public class EntityDetector{
+	
+	public void detectEntity(String sentence) throws InvalidFormatException, IOException{
+		
+		NameFinderME nameFinder =
+				new NameFinderME(
+				new TokenNameFinderModel(new FileInputStream("/home/rahul/project3/en-ner-location.bin")));
+		
+		
+	}
+	
+	
+}

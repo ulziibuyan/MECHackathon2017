@@ -1,0 +1,12 @@
+package Sentence_Detector;
+
+public class EntityDetector{
+	
+	public void detectEntity(String sentence) {
+		
+		
+		
+	}
+	
+	
+}

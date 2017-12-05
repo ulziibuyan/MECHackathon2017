@@ -1,0 +1,23 @@
+package Sentence_Detector;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import opennlp.tools.tokenize.Tokenizer;
+import opennlp.tools.tokenize.TokenizerModel;
+import opennlp.tools.util.InvalidFormatException;
+
+public class EntityDetector{
+	
+	public void detectEntity(String sentence) throws InvalidFormatException, IOException{
+		
+		InputStream is =  new FileInputStream("C:\\Users\\NMatAli\\Desktop\\dependencies\\model-file\\en-ner-ADR.bin");
+		TokenizerModel tokenModel = new TokenizerModel(is);
+		is.close();
+		Tokenizer token = new TokenizerME();
+		
+	}
+	
+	
+}
