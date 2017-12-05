@@ -12,16 +12,18 @@ public class SentenceDetect{
     
 
 	
-	public static void sentenceDetect(String paragraph) throws InvalidFormatException, IOException{
+	public static String[] sentenceDetect(String paragraph) throws InvalidFormatException, IOException{
 		
 		
-		breakSentence(paragraph); 
+		String [] splittedSentence = breakSentence(paragraph); 
 		//System.out.println(sentences[0]);
 		//System.out.println(sentences[1]);
 		
+		return splittedSentence;
+		
 		
 	}	
-	public static void breakSentence(String paragraph) throws InvalidFormatException, IOException {
+	public static String[] breakSentence(String paragraph) throws InvalidFormatException, IOException {
 		
 			
 		InputStream is =  new FileInputStream("C:\\Users\\NMatAli\\Desktop\\dependencies\\model-file\\en-sent-KYC.bin");
@@ -36,7 +38,7 @@ public class SentenceDetect{
     	
     	for(String s: sentences) {
     		
-    		if(s.contains("This is assuming")) {
+    		if(s.contains("If")) {
     			
     			cause = s;
     			
@@ -48,6 +50,7 @@ public class SentenceDetect{
     		
     	}
     	
+    	String[] splittedSentence = {cause,consequence};
 		//consequence[0] = sentences[consequenceMarkStart];
 		//consequence[1] = sentences[consequenceMarkEnd];
 		//System.out.println(sentences[0]+","+sentences[1]);
@@ -55,6 +58,8 @@ public class SentenceDetect{
     	System.out.println(cause + ", " + consequence);
 		
 		is.close();
+		
+		return splittedSentence;
 		
 	}
 
