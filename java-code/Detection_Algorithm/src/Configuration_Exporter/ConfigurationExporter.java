@@ -1,4 +1,6 @@
 
+package Main;
+
 import java.io.File;
 
 import java.io.BufferedWriter;
@@ -22,7 +24,12 @@ public  class ConfigurationExporter {
     public String longTextValue;
 
     public ConfigurationExporter() {
-        SQLText = null;
+        this.SQLText = null;
+        longTextValue = null;
+    }
+
+    public ConfigurationExporter(String sQLText) {
+        this.SQLText = sQLText;
         longTextValue = null;
     }
 

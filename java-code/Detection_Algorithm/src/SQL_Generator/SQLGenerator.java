@@ -1,4 +1,6 @@
 
+package Main;
+
 import java.util.*;
 
 public class SQLGenerator {
@@ -22,6 +24,7 @@ public class SQLGenerator {
             else if (entities[i].tag.matches("equal"))
                 sql.append(" = ");
         }
+        new ConfigurationExporter(sql.toString()).write();
         return sql.toString();
     }
     public String generateFrom(ArrayList<String> entities) {
@@ -30,6 +33,7 @@ public class SQLGenerator {
         sql.append("Select 1 from entity_Table where ");
         for (int i = 0; i < entities.size(); i++)
             sql.append("variable_" + alphabet.charAt(i) + " = " + entities.get(i) + " and ");
+        new ConfigurationExporter(sql.toString()).write();
         return sql.toString();
     }
     public static void main(String[] args) {
