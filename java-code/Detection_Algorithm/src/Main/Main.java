@@ -2,9 +2,9 @@ package Main;
 
 import java.io.IOException;
 import java.util.List;
-
 import Sentence_Detector.EntityDetector;
 import Sentence_Detector.SentenceDetect;
+import SQL_Generator.*;
 import opennlp.tools.util.InvalidFormatException;
 
 public class Main{
@@ -19,14 +19,11 @@ public class Main{
 			String modelPathNumber="C:/Users/NMatAli/Desktop/dependencies/model-file/en-ner-number.bin";
 			String[] entitiesNumber= EntityDetector.detectEntity(sentences[0], modelPathNumber);
 			String[] entitiesAge = EntityDetector.detectEntity(sentences[0], modelPathAge);
+			Entity[] entities_test1 = new Entity[2];
+			entities[0] = new Entity(entitiesAge[0], "less");
+			entities[1] = new Entity(entitiesNumber[0], "");
 			
-			for(String s: entitiesNumber)
-				   System.out.println(s);
-			
-			for(String s: entitiesAge)
-				   System.out.println(s);
-			
-			
+            
 		} catch (InvalidFormatException e) {
 			
 			// TODO Auto-generated catch block
